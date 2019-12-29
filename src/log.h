@@ -15,7 +15,11 @@
 
 typedef void (*log_LockFn)(void *udata, int lock);
 
-enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL };
+enum {
+    LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL
+};
+
+void log_log(int level, const char *file, int line, const char *fmt, ...);
 
 #define log_trace(...) log_log(LOG_TRACE, __FILE__, __LINE__, __VA_ARGS__)
 #define log_debug(...) log_log(LOG_DEBUG, __FILE__, __LINE__, __VA_ARGS__)
@@ -25,12 +29,16 @@ enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL };
 #define log_fatal(...) log_log(LOG_FATAL, __FILE__, __LINE__, __VA_ARGS__)
 
 void log_set_udata(void *udata);
+
 void log_set_lock(log_LockFn fn);
+
 void log_set_fp(FILE *fp);
+
 void log_set_level(int level);
+
 void log_set_quiet(int enable);
+
 int log_is_quiet();
 
-void log_log(int level, const char *file, int line, const char *fmt, ...);
 
 #endif
