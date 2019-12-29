@@ -129,7 +129,7 @@ void log_log(int level, const char *file, int line, const char *fmt, ...) {
         va_start(args, fmt);
         vfprintf(stderr, fmt, args);
         va_end(args);
-        fprintf(stderr, "\n");
+        fprintf(stderr, "\r\n");
         fflush(stderr);
     }
 
@@ -142,7 +142,7 @@ void log_log(int level, const char *file, int line, const char *fmt, ...) {
         va_start(args, fmt);
         vfprintf(L.fp, fmt, args);
         va_end(args);
-        fprintf(L.fp, "\n");
+        fprintf(L.fp, "\r\n");
         fflush(L.fp);
     }
 
