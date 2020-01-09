@@ -23,8 +23,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include <string.h>
-#include <time.h>
 
 #include "log.h"
 
@@ -98,10 +96,6 @@ void log_log(int level, const char *file, int line, const char *fmt, ...) {
 
     /* Acquire lock */
     lock();
-
-    /* Get current time */
-    time_t t = time(NULL);
-    struct tm *lt = localtime(&t);
 
     /* Log to stderr */
     if (!L.quiet) {
