@@ -6,8 +6,8 @@ list(APPEND ${PROJECT_NAME}_SOURCES
 
 add_library(${PROJECT_NAME} OBJECT EXCLUDE_FROM_ALL ${${PROJECT_NAME}_SOURCES})
 
-if (DEFINED ${TARGET_MCU})
-    target_compile_definitions(${PROJECT_NAME} PUBLIC -D__${TARGET_MCU}__)
+if (DEFINED BOARD_DEFINITIONS)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC ${BOARD_DEFINITIONS})
 endif ()
 
 # Use colours
