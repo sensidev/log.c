@@ -11,7 +11,7 @@ if (DEFINED BOARD_DEFINITIONS)
 endif ()
 
 # Use colours
-target_compile_definitions(${PROJECT_NAME} PUBLIC -DLOG_USE_COLOR)
+#target_compile_definitions(${PROJECT_NAME} PUBLIC -DLOG_USE_COLOR)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/src/
