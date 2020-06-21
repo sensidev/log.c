@@ -34,7 +34,6 @@ static struct {
     int quiet;
 } L;
 
-
 static const char *level_names[] = {
         "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
 };
