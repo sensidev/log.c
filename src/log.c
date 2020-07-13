@@ -89,41 +89,40 @@ int log_is_quiet() {
 
 
 void log_log(int level, const char *file, int line, const char *fmt, ...) {
+    if (L.quiet) {
+        return;
+    }
+
     if (level < L.level) {
         return;
     }
 
-    /* Acquire lock */
     lock();
 
-    /* Log to stderr */
-    if (!L.quiet) {
-        va_list args;
+    va_list args;
 #ifdef LOG_USE_FILEPATH
 #ifdef LOG_USE_COLOR
-        fprintf(
-          stderr, "%s%-5s\x1b[0m \x1b[90m%s:%d:\x1b[0m ",
-          level_colors[level], level_names[level], file, line);
+    fprintf(
+      stderr, "%s%-5s\x1b[0m \x1b[90m%s:%d:\x1b[0m ",
+      level_colors[level], level_names[level], file, line);
 #else
-        fprintf(stderr, "%-5s %s:%d: ", level_names[level], file, line);
+    fprintf(stderr, "%-5s %s:%d: ", level_names[level], file, line);
 #endif
 #else
 #ifdef LOG_USE_COLOR
-        fprintf(
-                stderr, "%s%-5s\x1b[0m :\x1b[0m ",
-                level_colors[level], level_names[level]);
+    fprintf(
+            stderr, "%s%-5s\x1b[0m :\x1b[0m ",
+            level_colors[level], level_names[level]);
 #else
-        fprintf(stderr, "%-5s : ", level_names[level]);
+    fprintf(stderr, "%-5s : ", level_names[level]);
 #endif
 #endif
 
-        va_start(args, fmt);
-        vfprintf(stderr, fmt, args);
-        va_end(args);
-        fprintf(stderr, "\r\n");
-        fflush(stderr);
-    }
+    va_start(args, fmt);
+    vfprintf(stderr, fmt, args);
+    va_end(args);
+    fprintf(stderr, "\r\n");
+    fflush(stderr);
 
-    /* Release lock */
     unlock();
 }
